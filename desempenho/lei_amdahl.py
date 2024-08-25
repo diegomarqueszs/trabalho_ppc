@@ -98,18 +98,13 @@ execucoes_6_threads = [
     4.00
 ]
 
-
 # Função para calcular a média
 def calcular_media(execucoes):
     return sum(execucoes) / len(execucoes)
 
-# Função para calcular a fração de tempo sequencial f usando a Lei de Amdahl
-def calcular_fracao_sequencial(speedup, num_threads):
-    return (1 / speedup - 1 / num_threads) / (1 - 1 / num_threads)
-
 # Função para calcular o speedup esperado com base na Lei de Amdahl
 def calcular_speedup_amdahl(num_threads):
-    return 1 / ((1 - 0.8) + (0.8 / num_threads))
+    return 1 / ((1 - 0.83) + (0.83 / num_threads))
 
 # Cálculo das médias
 media_sequencial = calcular_media(execucoes_sequencial)
@@ -136,14 +131,6 @@ speedup_4_threads_esperado = calcular_speedup_amdahl(4)
 speedup_5_threads_esperado = calcular_speedup_amdahl(5)
 speedup_6_threads_esperado = calcular_speedup_amdahl(6)
 
-# Cálculo da fração de tempo sequencial para cada número de threads
-fracao_sequencial_1_thread = 1
-fracao_sequencial_2_threads = calcular_fracao_sequencial(speedup_2_threads, 2)
-fracao_sequencial_3_threads = calcular_fracao_sequencial(speedup_3_threads, 3)
-fracao_sequencial_4_threads = calcular_fracao_sequencial(speedup_4_threads, 4)
-fracao_sequencial_5_threads = calcular_fracao_sequencial(speedup_5_threads, 5)
-fracao_sequencial_6_threads = calcular_fracao_sequencial(speedup_6_threads, 6)
-
 print(f"\nSpeedup com 1 thread: {speedup_1_thread:.2f}")
 print(f"Speedup com 2 threads: {speedup_2_threads:.2f}")
 print(f"Speedup com 3 threads: {speedup_3_threads:.2f}")
@@ -157,13 +144,6 @@ print(f"Speedup esperado com 3 threads: {speedup_3_threads_esperado:.2f}")
 print(f"Speedup esperado com 4 threads: {speedup_4_threads_esperado:.2f}")
 print(f"Speedup esperado com 5 threads: {speedup_5_threads_esperado:.2f}")
 print(f"Speedup esperado com 6 threads: {speedup_6_threads_esperado:.2f}")
-
-print(f"\nFração de tempo sequencial com 1 thread: {fracao_sequencial_1_thread:.4f}")
-print(f"Fração de tempo sequencial com 2 threads: {fracao_sequencial_2_threads:.4f}")
-print(f"Fração de tempo sequencial com 3 threads: {fracao_sequencial_3_threads:.4f}")
-print(f"Fração de tempo sequencial com 4 threads: {fracao_sequencial_4_threads:.4f}")
-print(f"Fração de tempo sequencial com 5 threads: {fracao_sequencial_5_threads:.4f}")
-print(f"Fração de tempo sequencial com 6 threads: {fracao_sequencial_6_threads:.4f}")
 
 # Plotando um gráfico de barras com os speedups reais e esperados
 num_threads = [1, 2, 3, 4, 5, 6]
