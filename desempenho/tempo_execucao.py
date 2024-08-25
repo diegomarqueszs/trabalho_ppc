@@ -125,7 +125,7 @@ num_threads = [1, 2, 3, 4, 5, 6]
 medias = [media_1_thread, media_2_threads, media_3_threads, media_4_threads, media_5_threads, media_6_threads]
 plt.bar(num_threads, medias)
 plt.xlabel("Número de threads")
-plt.ylabel("Tempo médio de execução (ms)")
+plt.ylabel("Tempo (ms)")
 plt.title("Tempo médio de execução")
 
 # Inserindo os valores no topo das barras

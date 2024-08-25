@@ -162,10 +162,15 @@ eficiencias = [
     eficiencia_6_threads,
 ]
 
-plt.bar(num_threads, eficiencias, color='skyblue')
+plt.bar(num_threads, eficiencias)
 plt.xlabel('Número de Threads')
 plt.ylabel('Eficiência')
-plt.title('Eficiência do BFS Paralelizado')
+plt.title('Eficiência do BFS')
 plt.xticks(num_threads)
-plt.ylim(0, 2)
+plt.ylim(0, 2.2)
+
+# Adicionando os valores no topo das barras
+for i, v in enumerate(eficiencias):
+    plt.text(i + 1, v + 0.1, str(round(v, 2)), ha='center')
+
 plt.show()
