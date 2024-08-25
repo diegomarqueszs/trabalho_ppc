@@ -98,7 +98,6 @@ execucoes_6_threads = [
     4.00
 ]
 
-
 # Função para calcular a média
 def calcular_media(execucoes):
     return sum(execucoes) / len(execucoes)
@@ -112,22 +111,6 @@ media_4_threads = calcular_media(execucoes_4_threads)
 media_5_threads = calcular_media(execucoes_5_threads)
 media_6_threads = calcular_media(execucoes_6_threads)
 
-# Cálculo dos speedups
-speedup_1_thread = media_sequencial / media_1_thread
-speedup_2_threads = media_sequencial / media_2_threads
-speedup_3_threads = media_sequencial / media_3_threads
-speedup_4_threads = media_sequencial / media_4_threads
-speedup_5_threads = media_sequencial / media_5_threads
-speedup_6_threads = media_sequencial / media_6_threads
-
-# Cálculo das eficiências
-eficiencia_1_thread = speedup_1_thread / 1
-eficiencia_2_threads = speedup_2_threads / 2
-eficiencia_3_threads = speedup_3_threads / 3
-eficiencia_4_threads = speedup_4_threads / 4
-eficiencia_5_threads = speedup_5_threads / 5
-eficiencia_6_threads = speedup_6_threads / 6
-
 # Exibição dos resultados
 print(f"Média do tempo de execução (sequencial) para 10.000 vértices: {media_sequencial:.2f} ms")
 print(f"Média do tempo de execução (1 thread) para 10.000 vértices: {media_1_thread:.2f} ms")
@@ -137,35 +120,16 @@ print(f"Média do tempo de execução (4 threads) para 10.000 vértices: {media_
 print(f"Média do tempo de execução (5 threads) para 10.000 vértices: {media_5_threads:.2f} ms")
 print(f"Média do tempo de execução (6 threads) para 10.000 vértices: {media_6_threads:.2f} ms")
 
-print(f"\nSpeedup com 1 thread: {speedup_1_thread:.2f}")
-print(f"Speedup com 2 threads: {speedup_2_threads:.2f}")
-print(f"Speedup com 3 threads: {speedup_3_threads:.2f}")
-print(f"Speedup com 4 threads: {speedup_4_threads:.2f}")
-print(f"Speedup com 5 threads: {speedup_5_threads:.2f}")
-print(f"Speedup com 6 threads: {speedup_6_threads:.2f}")
-
-print(f"\nEficiência com 1 thread: {eficiencia_1_thread:.2f}")
-print(f"Eficiência com 2 threads: {eficiencia_2_threads:.2f}")
-print(f"Eficiência com 3 threads: {eficiencia_3_threads:.2f}")
-print(f"Eficiência com 4 threads: {eficiencia_4_threads:.2f}")
-print(f"Eficiência com 5 threads: {eficiencia_5_threads:.2f}")
-print(f"Eficiência com 6 threads: {eficiencia_6_threads:.2f}")
-
-# Plotando o gráfico de eficiência
+# Plotagem do gráfico de barras
 num_threads = [1, 2, 3, 4, 5, 6]
-eficiencias = [
-    eficiencia_1_thread,
-    eficiencia_2_threads,
-    eficiencia_3_threads,
-    eficiencia_4_threads,
-    eficiencia_5_threads,
-    eficiencia_6_threads,
-]
+medias = [media_1_thread, media_2_threads, media_3_threads, media_4_threads, media_5_threads, media_6_threads]
+plt.bar(num_threads, medias)
+plt.xlabel("Número de threads")
+plt.ylabel("Tempo médio de execução (ms)")
+plt.title("Tempo médio de execução")
 
-plt.bar(num_threads, eficiencias, color='skyblue')
-plt.xlabel('Número de Threads')
-plt.ylabel('Eficiência')
-plt.title('Eficiência do BFS Paralelizado')
-plt.xticks(num_threads)
-plt.ylim(0, 2)
+# Inserindo os valores no topo das barras
+for i in range(len(num_threads)):
+    plt.text(num_threads[i], medias[i], f"{medias[i]:.2f}", ha='center', va='bottom')
+
 plt.show()
