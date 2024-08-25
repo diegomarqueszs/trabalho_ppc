@@ -55,7 +55,7 @@ plt.fill_between(vertices, ci_paralelo[0], ci_paralelo[1], color='red', alpha=0.
 
 plt.xlabel('Número de Vértices')
 plt.ylabel('Tempo de Execução (ms)')
-plt.title('Comparação de Algoritmos BFS: Paralelo vs Sequencial')
+plt.title('Paralelo ( 3 threads ) vs Sequencial')
 plt.legend()
 plt.grid(True)
 plt.show()

@@ -107,6 +107,10 @@ def calcular_media(execucoes):
 def calcular_fracao_sequencial(speedup, num_threads):
     return (1 / speedup - 1 / num_threads) / (1 - 1 / num_threads)
 
+# Função para calcular o speedup esperado com base na Lei de Amdahl
+def calcular_speedup_amdahl(num_threads):
+    return 1 / ((1 - 0.8) + (0.8 / num_threads))
+
 # Cálculo das médias
 media_sequencial = calcular_media(execucoes_sequencial)
 media_1_thread = calcular_media(execucoes_1_thread)
@@ -116,7 +120,7 @@ media_4_threads = calcular_media(execucoes_4_threads)
 media_5_threads = calcular_media(execucoes_5_threads)
 media_6_threads = calcular_media(execucoes_6_threads)
 
-# Cálculo dos speedups
+# Cálculo dos speedups reais
 speedup_1_thread = media_sequencial / media_1_thread
 speedup_2_threads = media_sequencial / media_2_threads
 speedup_3_threads = media_sequencial / media_3_threads
@@ -124,13 +128,13 @@ speedup_4_threads = media_sequencial / media_4_threads
 speedup_5_threads = media_sequencial / media_5_threads
 speedup_6_threads = media_sequencial / media_6_threads
 
-# Cálculo das eficiências
-eficiencia_1_thread = speedup_1_thread / 1
-eficiencia_2_threads = speedup_2_threads / 2
-eficiencia_3_threads = speedup_3_threads / 3
-eficiencia_4_threads = speedup_4_threads / 4
-eficiencia_5_threads = speedup_5_threads / 5
-eficiencia_6_threads = speedup_6_threads / 6
+# Cálculo dos speedups esperados
+speedup_1_thread_esperado = calcular_speedup_amdahl(1)
+speedup_2_threads_esperado = calcular_speedup_amdahl(2)
+speedup_3_threads_esperado = calcular_speedup_amdahl(3)
+speedup_4_threads_esperado = calcular_speedup_amdahl(4)
+speedup_5_threads_esperado = calcular_speedup_amdahl(5)
+speedup_6_threads_esperado = calcular_speedup_amdahl(6)
 
 # Cálculo da fração de tempo sequencial para cada número de threads
 fracao_sequencial_1_thread = 1
@@ -140,15 +144,6 @@ fracao_sequencial_4_threads = calcular_fracao_sequencial(speedup_4_threads, 4)
 fracao_sequencial_5_threads = calcular_fracao_sequencial(speedup_5_threads, 5)
 fracao_sequencial_6_threads = calcular_fracao_sequencial(speedup_6_threads, 6)
 
-# Exibição dos resultados
-print(f"Média do tempo de execução (sequencial) para 10.000 vértices: {media_sequencial:.2f} ms")
-print(f"Média do tempo de execução (1 thread) para 10.000 vértices: {media_1_thread:.2f} ms")
-print(f"Média do tempo de execução (2 threads) para 10.000 vértices: {media_2_threads:.2f} ms")
-print(f"Média do tempo de execução (3 threads) para 10.000 vértices: {media_3_threads:.2f} ms")
-print(f"Média do tempo de execução (4 threads) para 10.000 vértices: {media_4_threads:.2f} ms")
-print(f"Média do tempo de execução (5 threads) para 10.000 vértices: {media_5_threads:.2f} ms")
-print(f"Média do tempo de execução (6 threads) para 10.000 vértices: {media_6_threads:.2f} ms")
-
 print(f"\nSpeedup com 1 thread: {speedup_1_thread:.2f}")
 print(f"Speedup com 2 threads: {speedup_2_threads:.2f}")
 print(f"Speedup com 3 threads: {speedup_3_threads:.2f}")
@@ -156,12 +151,12 @@ print(f"Speedup com 4 threads: {speedup_4_threads:.2f}")
 print(f"Speedup com 5 threads: {speedup_5_threads:.2f}")
 print(f"Speedup com 6 threads: {speedup_6_threads:.2f}")
 
-print(f"\nEficiência com 1 thread: {eficiencia_1_thread:.2f}")
-print(f"Eficiência com 2 threads: {eficiencia_2_threads:.2f}")
-print(f"Eficiência com 3 threads: {eficiencia_3_threads:.2f}")
-print(f"Eficiência com 4 threads: {eficiencia_4_threads:.2f}")
-print(f"Eficiência com 5 threads: {eficiencia_5_threads:.2f}")
-print(f"Eficiência com 6 threads: {eficiencia_6_threads:.2f}")
+print(f"\nSpeedup esperado com 1 thread: {speedup_1_thread_esperado:.2f}")
+print(f"Speedup esperado com 2 threads: {speedup_2_threads_esperado:.2f}")
+print(f"Speedup esperado com 3 threads: {speedup_3_threads_esperado:.2f}")
+print(f"Speedup esperado com 4 threads: {speedup_4_threads_esperado:.2f}")
+print(f"Speedup esperado com 5 threads: {speedup_5_threads_esperado:.2f}")
+print(f"Speedup esperado com 6 threads: {speedup_6_threads_esperado:.2f}")
 
 print(f"\nFração de tempo sequencial com 1 thread: {fracao_sequencial_1_thread:.4f}")
 print(f"Fração de tempo sequencial com 2 threads: {fracao_sequencial_2_threads:.4f}")
@@ -170,21 +165,30 @@ print(f"Fração de tempo sequencial com 4 threads: {fracao_sequencial_4_threads
 print(f"Fração de tempo sequencial com 5 threads: {fracao_sequencial_5_threads:.4f}")
 print(f"Fração de tempo sequencial com 6 threads: {fracao_sequencial_6_threads:.4f}")
 
-# Plotando o gráfico da fração de tempo sequencial
+# Plotando um gráfico de barras com os speedups reais e esperados
 num_threads = [1, 2, 3, 4, 5, 6]
-fracoes_sequenciais = [
-    fracao_sequencial_1_thread,
-    fracao_sequencial_2_threads,
-    fracao_sequencial_3_threads,
-    fracao_sequencial_4_threads,
-    fracao_sequencial_5_threads,
-    fracao_sequencial_6_threads,
+speedups_reais = [
+    speedup_1_thread,
+    speedup_2_threads,
+    speedup_3_threads,
+    speedup_4_threads,
+    speedup_5_threads,
+    speedup_6_threads,
+]
+speedups_esperados = [
+    speedup_1_thread_esperado,
+    speedup_2_threads_esperado,
+    speedup_3_threads_esperado,
+    speedup_4_threads_esperado,
+    speedup_5_threads_esperado,
+    speedup_6_threads_esperado,
 ]
 
-plt.bar(num_threads, fracoes_sequenciais, color='orange')
+plt.plot(num_threads, speedups_reais, label='Speedup Real', color='blue', marker='o')
+plt.plot(num_threads, speedups_esperados, label='Speedup Amdahl', color='red', marker='o')
 plt.xlabel('Número de Threads')
-plt.ylabel('Fração de Tempo Sequencial (f)')
-plt.title('Fração de Tempo Sequencial (Lei de Amdahl)')
-plt.xticks(num_threads)
-plt.ylim(0, 1)
+plt.ylabel('Speedup')
+plt.title('Speedup Real vs Speedup Esperado')
+plt.legend()
+plt.grid(True)
 plt.show()

@@ -154,7 +154,7 @@ print(f"Eficiência com 6 threads: {eficiencia_6_threads:.2f}")
 # Plotando o gráfico de eficiência
 num_threads = [1, 2, 3, 4, 5, 6]
 eficiencias = [
-    eficiencia_1_thread,
+    1.00,
     eficiencia_2_threads,
     eficiencia_3_threads,
     eficiencia_4_threads,
