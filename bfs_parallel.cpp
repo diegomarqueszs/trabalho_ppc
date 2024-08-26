@@ -103,7 +103,7 @@ int main() {
     arquivoSaida << fixed << setprecision(2);
 
     for (int x = 0; x < 5; x++) {
-        arquivoSaida << "Execução = " << x << endl;
+        arquivoSaida << "Execução " << x << endl;
         for (int numVertices = 1000; numVertices <= 10000; numVertices += 1000) {
             long long duracaoTotal = 0;
 
@@ -119,10 +119,10 @@ int main() {
             }
 
             double duracaoMedia = static_cast<double>(duracaoTotal) / numIteracoes;
-            arquivoSaida << numVertices << " " << duracaoMedia << " ms" << endl;
+            arquivoSaida << "N vertices: " << numVertices << " -> " << duracaoMedia << " ms" << endl;
         }
         arquivoSaida << endl;
-        cout << "x = " << x << endl;
+        cout << "Execução " << x << " - OK" << endl;
     }
 
     arquivoSaida.close();
